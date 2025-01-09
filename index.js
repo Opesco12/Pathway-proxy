@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   "/api/v1",
-  proxy("https://xfund.stlassetmgt.com:10443", {
+  proxy("https://102.207.208.18:6545", {
     proxyReqPathResolver: (req) => {
       console.log("Resolving path:", req.url);
       return "/api/v1" + req.url;
