@@ -61,4 +61,36 @@ app.use(
   })
 );
 
+app.post("/api/v1/upload-client-photo", async (req, res) => {
+  try {
+    // Extract base64 and filename from request body
+    const { base64, filename } = req.body;
+
+    // Create axios instance with custom config
+    const axiosInstance = axios.create({
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false, // Use only in development
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: req.headers.authorization,
+      },
+    });
+
+    // Make the request to the target server
+    const response = await axiosInstance.post(
+      `https://102.207.208.18:6545/api/v1/upload-client-photo`,
+      { base64, filename }
+    );
+
+    // Send back the response
+    res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(error.response?.status || 500).json({
+      message: error.response?.data || "Upload failed",
+    });
+  }
+});
+
 app.listen(port, () => console.log("APP is listening on port 3000"));
