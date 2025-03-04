@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const proxy = require("express-http-proxy");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -79,7 +79,7 @@ app.post("/api/v1/upload-client-photo", async (req, res) => {
 
     // Make the request to the target server
     const response = await axiosInstance.post(
-      `https://102.207.208.18:6545/api/v1/upload-client-photo`,
+      `https://102.207.208.18:6545/api/v1/uploadclientphoto`,
       { base64, filename }
     );
 
@@ -93,4 +93,4 @@ app.post("/api/v1/upload-client-photo", async (req, res) => {
   }
 });
 
-app.listen(port, () => console.log("APP is listening on port 3000"));
+app.listen(port, () => console.log("APP is listening on port 3001"));
